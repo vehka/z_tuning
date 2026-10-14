@@ -28,7 +28,10 @@ local is_comment = function(line)
    return string.find(line, "^!")
 end
 
--- parse a .scl file, return ratios
+-- parse a .scl file, return the ratios of the scale degrees from 1/1, and
+-- the period (usually 2/1).
+-- a .scl file leaves out 1/1 and ends with the period, so 1/1 goes first
+-- and the last ratio becomes the period: the degrees then start on the root
 Scala.load_file = function(path)
    local ratios = {}
 
@@ -57,7 +60,9 @@ Scala.load_file = function(path)
       end
       l = lines()
    until l == nil
-   return ratios
+   local period = table.remove(ratios)
+   table.insert(ratios, 1, 1)
+   return ratios, period
 end
 
 return Scala

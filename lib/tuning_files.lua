@@ -43,9 +43,10 @@ TuningFiles.load_files = function(callback)
             local name, ext = string.match(file, "(.*)%.(.*)")
             if ext == 'scl' then
                print('loading tuning file (.scl): ' .. file)
-               local r = scala.load_file(user_data_path .. '/' .. file)
+               local r, period = scala.load_file(user_data_path .. '/' .. file)
                tunings[name] = tuning.new({
-                  ratios = r
+                  ratios = r,
+                  pseudo_octave = period
                })
             elseif ext == 'lua' then
                print('loading tuning file (.lua): ' .. file)
