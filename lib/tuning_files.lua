@@ -15,7 +15,7 @@ TuningFiles.bootstrap = function()
       print('copying tuning data...')
       os.execute("cp " .. factory_data_path .. "/*.* " .. user_data_path)
    else
-      dir.close()
+      dir:close()
    end
 end
 
